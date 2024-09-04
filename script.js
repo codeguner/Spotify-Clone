@@ -11,12 +11,12 @@ async function getSongs() {
     let songs = []
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
-        if(element.href.endsWith(".mp3")){
+        if (element.href.endsWith(".mp3")) {
             songs.push(element.href);
-        };    
+        };
     };
     return songs;
-    
+
 };
 
 async function main() {
@@ -25,8 +25,15 @@ async function main() {
     console.log(songs);
 
     // Play the first song
-    var audio = new Audio(songs[0]);
-    audio.play();    
-}
+    var audio = new Audio(songs[5]); 
+    audio.play();
+
+    audio.addEventListener("loadeddata", () => {
+        let duration = audio.duration;
+        console.log(duration)
+        // The duration variable now holds the duration (in seconds) of the audio clip 
+    });  
+} 
+
 
 main()
