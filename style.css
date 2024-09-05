@@ -230,6 +230,7 @@ body {
     position: absolute;
     bottom: 0;
     margin: 6px;
+    cursor: pointer;
 }
 
 .circle {
@@ -243,6 +244,15 @@ body {
     transition: left 0.5s;
 }
 
-.songbuttons {
-    
+.songbuttons img{
+    cursor: pointer;
+}
+
+.songinfo, .songtime{
+    color: black;
+    padding: 0 12px;
+}
+.abovebar {
+    display: flex;
+    justify-content: space-between;
 }
