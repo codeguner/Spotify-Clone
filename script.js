@@ -1,9 +1,11 @@
 console.log("Lets write Javascript");
 let currentSong = new Audio();
+let songs;
+
 
 function secondsToMinutesSeconds(seconds) {
     if(isNaN(seconds) || seconds < 0) {
-        return "Invalid input";
+        return "00:00";
     }
 
     const minutes = Math.floor(seconds / 60);
@@ -50,7 +52,7 @@ async function main() {
 
 
     // Get the list of all the songs
-    let songs = await getSongs();
+    songs = await getSongs();
     playMusic(songs[0], true);
     // Show all the songs in the playlist
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0]
@@ -99,6 +101,45 @@ async function main() {
         let percent = (e.offsetX/e.target.getBoundingClientRect().width) * 100;
         document.querySelector(".circle").style.left = percent + "%";
         currentSong.currentTime = ((currentSong.duration) * percent) /100
+    });
+
+    // Add an event lister for hamburger
+    document.querySelector(".hamburger").addEventListener("click", ()=>{
+        document.querySelector(".left").style.left = "0";
+    });
+
+    // Add an event listener for close button
+    document.querySelector(".close").addEventListener("click", ()=>{
+        document.querySelector(".left").style.left = "-120%";
+    });
+
+    // Add an event listener for previous and next
+    previous.addEventListener("click", ()=>{
+        console.log("Previous clicked");
+        console.log(currentSong);
+
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+
+        if((index - 1) >= 0) {
+            playMusic(songs[index - 1]);
+        }
+    })
+    // Add an event listener for previous and next
+    next.addEventListener("click", ()=>{
+        console.log("Next clicked")
+
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+
+        if((index + 1) < songs.length) {
+            playMusic(songs[index + 1]);
+        }
+
+    })
+
+    // Add an event to volume
+    document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e)=>{
+        console.log("Setting volume to", e.target.value, "/100")
+        currentSong.volume = perseInt(e.target.value) / 100
     })
 
 };
